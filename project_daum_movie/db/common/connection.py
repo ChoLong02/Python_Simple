@@ -32,6 +32,7 @@
 
 import pymysql
 
+
 # DB 연결
 def connection():
     try:
@@ -40,7 +41,7 @@ def connection():
             port=3306,
             user="root",
             password="1234",
-            db="daum",
+            db="simple",
             charset="utf8",
             autocommit=True,
             cursorclass=pymysql.cursors.DictCursor

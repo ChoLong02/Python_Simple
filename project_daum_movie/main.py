@@ -15,6 +15,8 @@
 #   - URL: https://sites.google.com/chromium.org/driver/
 #  2.실시간(코드) 다운로드
 
+from db.movie_dao import add_review
+
 from datetime import datetime, timedelta
 import math
 import re
@@ -107,6 +109,17 @@ for item in review_list:
         # 4) 계산된 등록일자 날짜 포맷 변경(다음 영화 리뷰 날짜 포맷)
         review_date = review_date.strftime("%Y. %m. %d. %H:%M")
     print(f"  - 날짜: {review_date}")
+
+    # MariaDB 저장(제목, 리뷰, 평점, 작성자, 작성일자)
+    data = {
+        "title": movie_title,
+        "review": review_content,
+        "score": review_score,
+        "writer": review_writer,
+        "reg_date": review_date
+    }
+    add_review(data)
+
 
 
 
