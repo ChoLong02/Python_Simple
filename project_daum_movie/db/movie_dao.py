@@ -21,3 +21,24 @@ def add_review(data):
     finally:
         # 5.자원 해제
         conn.close()
+
+
+def get_last_review():
+    conn = connection()
+    try:
+        curs = conn.cursor()
+        sql = """
+                SELECT * 
+                FROM (
+                    SELECT DATE_FORMAT(STR_TO_DATE(reg_date, '%Y. %m. %d. %H:%i'), '%Y%m%d%H%i') AS int_regdate FROM tbl_review
+                    ORDER BY reg_date
+                ) EX1
+                ORDER BY int_regdate DESC LIMIT 1;
+              """
+        curs.execute(sql)
+        result = curs.fetchone()
+        return result
+    except Exception as e:
+        print(e)
+    finally:
+        conn.close()
